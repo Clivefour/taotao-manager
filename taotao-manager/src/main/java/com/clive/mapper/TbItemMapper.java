@@ -26,5 +26,12 @@ public interface TbItemMapper {
 	 * index外界传进来的参数 名字叫做index
 	 */
 	List<TbItem> findTbItemByPage(@Param("index") Integer index,@Param("pageSize") Integer pageSize);
-
+	/**
+	 * 根据商品id删除商品信息 
+	 * @param items
+	 * @return 如果返回的数据大于0表示删除成功
+	
+		int delteItemByIds(@Param("ids") List<Long> ids);
+	 */
+	int updateItemByIds(@Param("ids") List<Long> ids,@Param("type") Integer type);
 }

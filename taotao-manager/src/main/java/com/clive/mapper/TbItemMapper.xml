@@ -13,4 +13,44 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findTbItemByPage" parameterType="int" resultType="com.clive.bean.TbItem">
 		SELECT * FROM tbitem LIMIT #{index},#{pageSize}
 	</select>
+	<!-- 
+	<delete id="delteItemByIds">
+		UPDATE tbitem SET status = 2
+		<where>
+			<foreach collection="ids" open="id in(" separator="," close=")" item="id">
+				#{id}
+			</foreach>
+		</where>
+	</delete>
+	-->
+	<update id="updateItemByIds">
+		<if test="type==0">
+			UPDATE tbitem SET status = 0
+			<where>
+				<foreach collection="ids" open="id in(" separator="," close=")" item="id">
+					#{id}
+				</foreach>
+			</where>
+		</if>
+		<if test="type==1">
+			UPDATE tbitem SET status = 1
+			<where>
+				<foreach collection="ids" open="id in(" separator="," close=")" item="id">
+					#{id}
+				</foreach>
+			</where>
+		</if>
+		<if test="type==2">
+			UPDATE tbitem SET status = 2
+			<where>
+				<foreach collection="ids" open="id in(" separator="," close=")" item="id">
+					#{id}
+				</foreach>
+			</where>
+		</if>
+		
+	</update>
+	
+	
+	
 </mapper>

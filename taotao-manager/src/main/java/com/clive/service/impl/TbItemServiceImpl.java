@@ -1,5 +1,6 @@
 package com.clive.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.clive.bean.TbItem;
 import com.clive.common.LayuiTableResult;
+import com.clive.common.TaotaoResult;
 import com.clive.mapper.TbItemMapper;
 import com.clive.service.TbItemService;
 @Service
@@ -31,6 +33,36 @@ public class TbItemServiceImpl implements TbItemService {
 		List<TbItem> data = tbItemMapper.findTbItemByPage((page-1), limit);
 		result.setData(data);
 		return result;
+	}
+
+//	@Override
+//	public TaotaoResult delteItemByIds(List<TbItem> items) {
+//		List<Long> ids = new ArrayList<Long>();
+//		for (TbItem item : items) {
+//			ids.add(item.getId());
+//		}
+//		int count = tbItemMapper.delteItemByIds(ids);
+//		if(count>0){
+//			return TaotaoResult.ok();
+//		}
+//		return TaotaoResult.build(500, "删除有误");
+//	}
+
+	@Override
+	public TaotaoResult updateItems(List<TbItem> items, Integer type) {
+		List<Long> ids = new ArrayList<Long>();
+		for (TbItem tbItem : items) {
+			ids.add(tbItem.getId());
+		}
+		int count = tbItemMapper.updateItemByIds(ids, type);
+		if(count>0&&type==0){
+			return TaotaoResult.build(200, "商品下架成功");
+		}else if(count>0&&type==1){
+			return TaotaoResult.build(200, "商品上架成功");
+		}else if(count>0&&type==2){
+			return TaotaoResult.build(200, "商品删除成功");
+		}
+		return TaotaoResult.build(500, "操作有误");
 	}
 
 }

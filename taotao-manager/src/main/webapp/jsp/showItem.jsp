@@ -5,15 +5,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>商品展示页面</title>
+
 </head>
 <body>
 	<div>
 		<input type="text" name="" />
 	</div>
-	<table class="layui-hide" id="showItemPage" lay-filter="test"></table>
+	<table class="layui-hide" id="showItemPage" lay-filter="itemToolBar"></table>
 
 	<div id="toolbarDemo" style="display: none;"  class="layui-btn-container">
-		<button class="layui-btn layui-btn-sm" lay-event="getDataDelete">选中删除</button>
+		<button class="layui-btn layui-btn-sm" lay-event="itemDelete">选中删除</button>
 		<button class="layui-btn layui-btn-sm" lay-event="addItem">新增商品</button>
 		<button class="layui-btn layui-btn-sm" lay-event="updateItem">修改商品</button>
 		<button class="layui-btn layui-btn-sm" lay-event="commodityUpperShelves">商品上架</button>
@@ -23,9 +24,11 @@
 		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a> 
 		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 	</div>
+	
 	<script>
+		var table;
 		layui.use('table', function() {
-			var table = layui.table;
+			table = layui.table;
 			/**
 				layui的核心思想是
 				当用户访问这个shoItem.jsp页面的时候  发现有一个table标签
@@ -76,10 +79,6 @@
 					title : '商品数量',
 					width : 100
 				}, {
-					field : 'barcode',
-					title : '条形码',
-					width : 100
-				}, {
 					field : 'cId',
 					title : '商品类目',
 					width : 100
@@ -93,12 +92,12 @@
 					field : 'created',
 					title : '创建时间',
 					templet:'<div>{{ layui.util.toDateString(d.created, "yyyy-MM-dd HH:mm:ss") }}</div>',
-					width : 100
+					width : 200
 				},{
 					field : 'updated',
 					title : '更新时间',
 					templet:'<div>{{ layui.util.toDateString(d.updated, "yyyy-MM-dd HH:mm:ss") }}</div>',
-					width : 100
+					width : 200
 				},
 				{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
 					]
@@ -106,7 +105,67 @@
 				page : true
 			});
 
-	
+			 //头工具栏事件
+			table.on('toolbar(itemToolBar)', function(obj){
+			   var checkStatus = table.checkStatus(obj.config.id);
+			    switch(obj.event){
+			      case 'itemDelete':
+			        var data = checkStatus.data;
+			             $.ajax({
+				            type: "POST",
+				            url: "/item/itemDelete",
+				            contentType: "application/json;charset=utf-8",
+				            data:JSON.stringify(data),
+				            dataType: "json",
+				            success:function (message) {
+				               if(message.status==200){
+				            	   layer.alert('删除商品成功');
+				            	   table.reload('showItemPage',{  });
+				               }else{
+				            	   layer.alert(message.msg);
+				               }
+				            }
+				        });
+			      break;
+			      case 'commodityUpperShelves':
+				        var data = checkStatus.data;
+				             $.ajax({
+					            type: "POST",
+					            url: "/item/commodityUpperShelves",
+					            contentType: "application/json;charset=utf-8",
+					            data:JSON.stringify(data),
+					            dataType: "json",
+					            success:function (message) {
+					               if(message.status==200){
+					            	   layer.alert(message.msg);
+					            	   table.reload('showItemPage',{  });
+					               }else{
+					            	   layer.alert(message.msg);
+					               }
+					            }
+					        });
+				      break;
+			      case 'commodityLowerShelves':
+				        var data = checkStatus.data;
+				             $.ajax({
+					            type: "POST",
+					            url: "/item/commodityLowerShelves",
+					            contentType: "application/json;charset=utf-8",
+					            data:JSON.stringify(data),
+					            dataType: "json",
+					            success:function (message) {
+					               if(message.status==200){
+					            	   layer.alert(message.msg);
+					            	   table.reload('showItemPage',{  });
+					               }else{
+					            	   layer.alert(message.msg);
+					               }
+					            }
+					        });
+				      break;
+			    
+			    };
+			  });
 
 			
 		});
@@ -115,10 +174,10 @@
 		
 	</script>
 	<script type="text/html" id="titleTpl">
-    {{#  if(d.status ==1){ }}
-        	 上架
-    {{#  }  else if(d.status==0){ }}
-       	下架
+    {{#  if(d.status ==0){ }}
+        	下架 
+    {{#  }  else if(d.status==1){ }}
+       	上架
  	{{#  }  else if(d.status==2){ }}
        	删除
     {{#  } }}

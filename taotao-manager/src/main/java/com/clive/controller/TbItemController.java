@@ -1,13 +1,18 @@
 package com.clive.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.clive.bean.TbItem;
 import com.clive.common.LayuiTableResult;
+import com.clive.common.TaotaoResult;
 import com.clive.service.TbItemService;
+import com.sun.tools.internal.xjc.model.SymbolSpace;
 
 @Controller
 @RequestMapping("/item")
@@ -27,5 +32,23 @@ public class TbItemController {
 		LayuiTableResult result = tbItemService.findItemByPage(page, limit);
 		return result;
 	}
-	
+	@RequestMapping("/itemDelete")
+	@ResponseBody
+	public TaotaoResult deleteItemById(@RequestBody List<TbItem> items){
+		TaotaoResult result = tbItemService.updateItems(items, 2);
+		return result;
+	}
+	@RequestMapping("/commodityUpperShelves")
+	@ResponseBody
+	public TaotaoResult commodityUpperShelves(@RequestBody List<TbItem> items){
+		TaotaoResult result = tbItemService.updateItems(items,1);
+		return result;
+	}
+	@RequestMapping("/commodityLowerShelves")
+	@ResponseBody
+	public TaotaoResult commodityLowerShelves(@RequestBody List<TbItem> items){
+		TaotaoResult result = tbItemService.updateItems(items,0);
+		System.out.println(result);
+		return result;
+	}
 }

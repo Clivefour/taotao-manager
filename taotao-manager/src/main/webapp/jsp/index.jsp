@@ -5,11 +5,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>淘淘商城后台</title>
-<script
-		src="${pageContext.request.contextPath }/js/jquery-2.1.0.min.js"></script>
+
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/layui/css/layui.css">
 	<script src="${pageContext.request.contextPath }/layui/layui.js"></script>
+<script
+		src="${pageContext.request.contextPath }/js/jquery-2.1.0.min.js"></script>
 <script
 		src="${pageContext.request.contextPath }/js/index.js"></script>
 
