@@ -5,8 +5,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>淘淘商城后台</title>
+<script
+		src="${pageContext.request.contextPath }/js/jquery-2.1.0.min.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/layui/css/layui.css">
+	<script src="${pageContext.request.contextPath }/layui/layui.js"></script>
+<script
+		src="${pageContext.request.contextPath }/js/index.js"></script>
+
 </head>
 <body class="layui-layout-body">
 	<div class="layui-layout layui-layout-admin">
@@ -122,22 +128,8 @@
 			© 欢迎来到淘淘商城后台管理系统
 		</div>
 	</div>
-	<script src="${pageContext.request.contextPath }/layui/layui.js"></script>
-	<script
-		src="${pageContext.request.contextPath }/js/jquery-2.1.0.min.js"></script>
 
-	<script>
-//JavaScript代码区域
-layui.use('element', function(){
-  var element = layui.element;
-  
-});
-$("#showItem").click(function(){
-	 $("#content").load("/jsp/showItem.jsp");
-})
-$("#addItemCat").click(function(){
-	$("#content").load("/jsp/addItemCat.jsp");
-})
-</script>
+
+
 </body>
 </html>

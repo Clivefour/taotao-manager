@@ -7,4 +7,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findTbItemById" parameterType="long" resultType="com.clive.bean.TbItem">
 		SELECT * FROM tbitem WHERE id = #{id}
 	</select>
+	<select id="findTbItemCount" resultType="int">
+		SELECT COUNT(*) FROM tbitem
+	</select>
+	<select id="findTbItemByPage" parameterType="int" resultType="com.clive.bean.TbItem">
+		SELECT * FROM tbitem LIMIT #{index},#{pageSize}
+	</select>
 </mapper>
