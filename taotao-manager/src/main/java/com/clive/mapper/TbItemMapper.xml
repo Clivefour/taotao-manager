@@ -25,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	-->
 	<update id="updateItemByIds">
 		<if test="type==0">
-			UPDATE tbitem SET status = 0
+			UPDATE tbitem SET status = 0,updated = #{date}
 			<where>
 				<foreach collection="ids" open="id in(" separator="," close=")" item="id">
 					#{id}

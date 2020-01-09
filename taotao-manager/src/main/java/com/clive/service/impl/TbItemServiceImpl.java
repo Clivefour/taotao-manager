@@ -1,6 +1,7 @@
 package com.clive.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class TbItemServiceImpl implements TbItemService {
 		int count = tbItemMapper.findTbItemCount();
 		result.setCount(count);
 		//分页的集合对象
-		List<TbItem> data = tbItemMapper.findTbItemByPage((page-1), limit);
+		List<TbItem> data = tbItemMapper.findTbItemByPage((page-1)*limit, limit);
 		result.setData(data);
 		return result;
 	}
@@ -49,12 +50,12 @@ public class TbItemServiceImpl implements TbItemService {
 //	}
 
 	@Override
-	public TaotaoResult updateItems(List<TbItem> items, Integer type) {
+	public TaotaoResult updateItems(List<TbItem> items, Integer type,Date date) {
 		List<Long> ids = new ArrayList<Long>();
 		for (TbItem tbItem : items) {
 			ids.add(tbItem.getId());
 		}
-		int count = tbItemMapper.updateItemByIds(ids, type);
+		int count = tbItemMapper.updateItemByIds(ids, type,date);
 		if(count>0&&type==0){
 			return TaotaoResult.build(200, "商品下架成功");
 		}else if(count>0&&type==1){
@@ -64,5 +65,4 @@ public class TbItemServiceImpl implements TbItemService {
 		}
 		return TaotaoResult.build(500, "操作有误");
 	}
-
 }

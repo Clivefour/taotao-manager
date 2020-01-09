@@ -1,5 +1,6 @@
 package com.clive.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.clive.bean.TbItem;
@@ -31,11 +32,12 @@ public interface TbItemService {
 	 * 上架下架和删除方法 但是这个删除 不是真的删除数据 而是 修改商品的状态
 	 * @param items 需要上架和下架的商品对象集合 只需要id
 	 * @param type 0代表下架 1代表上架  2代表删除
+	 * @param date 代表更新时间
 	 * @return
 	 *  返回TaotaoResult对象 里面有三个属性 status msg data
 	 * status:代表 响应的状态码 如果为200则删除成功 否则删除失败 500
 	 * msg:代表提示页面的信息 
 	 * data:如果页面需要一个json格式的数据 做为操作  那么data里面就是这个对象
 	 */
-	TaotaoResult updateItems(List<TbItem> items, Integer type);
+	TaotaoResult updateItems(List<TbItem> items, Integer type,Date date);
 }

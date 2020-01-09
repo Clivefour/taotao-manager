@@ -1,5 +1,6 @@
 package com.clive.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -33,5 +34,5 @@ public interface TbItemMapper {
 	
 		int delteItemByIds(@Param("ids") List<Long> ids);
 	 */
-	int updateItemByIds(@Param("ids") List<Long> ids,@Param("type") Integer type);
+	int updateItemByIds(@Param("ids") List<Long> ids,@Param("type") Integer type,@Param("date") Date date);
 }
