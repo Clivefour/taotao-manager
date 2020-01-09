@@ -52,4 +52,13 @@ public class TbItemController {
 		System.out.println(result);
 		return result;
 	}
+	
+	@RequestMapping("/searchItem")
+	@ResponseBody
+	public LayuiTableResult searchItem(Integer page,Integer limit,String title,Integer priceMin,Integer priceMax,Long cId){
+		LayuiTableResult result = tbItemService.searchItems(page,limit,title,priceMin,priceMax,cId);
+		
+		
+		return result;
+	}
 }

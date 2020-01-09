@@ -20,12 +20,12 @@
 		<div class="layui-inline">
 			<label class="layui-form-label">范围</label>
 			<div class="layui-input-inline" style="width: 100px;">
-				<input type="text" name="price_min" placeholder="￥"
+				<input type="text" id="priceMin" placeholder="￥:0"
 					autocomplete="off" class="layui-input">
 			</div>
 			<div class="layui-form-mid">-</div>
 			<div class="layui-input-inline" style="width: 100px;">
-				<input type="text" name="price_max" placeholder="￥"
+				<input type="text" id="priceMax" placeholder="￥:100000"
 					autocomplete="off" class="layui-input">
 			</div>
 		</div>
@@ -36,8 +36,9 @@
 				<input id="selectCid" type="text" name="cId" placeholder="请选择商品名称"
 					class="layui-input">
 			</div>
+			<input type="hidden" id="cidContent"/>
 		</div>
-		<button type="button" class="layui-btn layui-btn-radius">点击搜索</button>
+		<button id="search" type="button" class="layui-btn layui-btn-radius">点击搜索</button>
 	</div>
 	<table class="layui-hide" id="showItemPage" lay-filter="itemToolBar"></table>
 
@@ -57,7 +58,8 @@
 	</div>
 
 	<script>
-			var table;
+		
+	
 			layui.use('table',function() {
 					table = layui.table;
 								/**
@@ -79,6 +81,7 @@
 											url : '/item/showItemPage',//请求服务器的url路径
 											toolbar : '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
 											,
+											id : "reloadTable",
 											defaultToolbar : [ 'filter', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
 												layEvent : 'LAYTABLE_TIPS',
 												icon : 'layui-icon-tips'
@@ -237,7 +240,33 @@
 													}
 													;
 												});
+								$("#search").click(function(){
+									var titleVal = $("#searchTitile").val();
+									var priceMinVal = $("#priceMin").val();
+									var priceMaxVal = $("#priceMax").val();
+									var cidContentVal = $("#cidContent").val();
+									table.reload('reloadTable', {
+									    url: '/item/searchItem'
+									    ,method:"post"
+									    ,where: {
+									     title : titleVal,
+									     priceMin : priceMinVal,
+									     priceMax : priceMaxVal,
+									     cId : cidContentVal
+									    }
+									    ,page: {
+									     curr: 1
+									    }
+									   });
+									$("#searchTitile").val("");
+									$("#priceMin").val("");
+									$("#priceMax").val("");
+									$("#cidContent").val("");
+								})
 							});
+			$("#selectCid").click(function(){
+				alert("点击我出现一个 弹窗 通过这个弹窗来选择商品分类");
+			})
 		</script>
 	<script type="text/html" id="titleTpl">
     {{#  if(d.status ==0){ }}

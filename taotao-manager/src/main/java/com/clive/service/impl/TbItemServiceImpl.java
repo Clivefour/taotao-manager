@@ -65,4 +65,32 @@ public class TbItemServiceImpl implements TbItemService {
 		}
 		return TaotaoResult.build(500, "操作有误");
 	}
+
+	@Override
+	public LayuiTableResult searchItems(Integer page, Integer limit, String title, Integer priceMin, Integer priceMax,
+			Long cId) {
+		//在java中判断 我们是在内存中判断 没有在sql语句中判断 这样性能高一点
+		if(priceMin==null){
+			priceMin = 0;
+		}
+		if(priceMax==null){
+			priceMax = 10000000; 
+		}
+		LayuiTableResult result = new LayuiTableResult();
+		result.setCode(0);
+		
+		int count = tbItemMapper.findTbItemCountBySearch(title,priceMin,priceMax,cId);
+		if(count<=0){
+			result.setMsg("没有商品信息");
+			return result;
+		}
+		result.setMsg("");
+		result.setCount(count);
+		List<TbItem> data = tbItemMapper.findTbItemBySearchPage((page-1)*limit, limit,title,priceMin,priceMax,cId);
+		/**
+		 * 因为查询条件确定不了 所以 我们的总记录条数 包括 根据条件查询的商品信息 也确定不了
+		 */
+		result.setData(data);
+		return result;
+	}
 }

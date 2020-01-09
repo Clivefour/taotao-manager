@@ -40,4 +40,16 @@ public interface TbItemService {
 	 * data:如果页面需要一个json格式的数据 做为操作  那么data里面就是这个对象
 	 */
 	TaotaoResult updateItems(List<TbItem> items, Integer type,Date date);
+	/**
+	 * 多条件查询商品信息
+	 * @param page 开始索引 一开始为第一页 默认值为1
+	 * @param limit 每一页显示的记录条数 默认值为10
+	 * @param title 商品名称 如果页面不传入参数默认值为""空字符串
+	 * @param priceMin 商品价格区间最低价 如果页面不传入参数默认值为null
+	 * @param priceMax 商品价格区间最高价 如果页面不传入参数默认值为null
+	 * @param cId 商品分类id 如果页面不传入参数入参数默认值为null
+	 * @return layui需要的json格式对象
+	 */
+	LayuiTableResult searchItems(Integer page, Integer limit, String title, Integer priceMin, Integer priceMax,
+			Long cId);
 }

@@ -35,4 +35,16 @@ public interface TbItemMapper {
 		int delteItemByIds(@Param("ids") List<Long> ids);
 	 */
 	int updateItemByIds(@Param("ids") List<Long> ids,@Param("type") Integer type,@Param("date") Date date);
+	int findTbItemCountBySearch(@Param("title")String title, @Param("priceMin")Integer priceMin, @Param("priceMax")Integer priceMax, @Param("cId")Long cId);
+	/**
+	 * 多条件查询商品信息并且分页显示
+	 * @param index 开始索引 默认值为0
+	 * @param limit 每一页显示的条数 默认值为10
+	 * @param title 商品名称
+	 * @param priceMin 商品最低价格 默认值为0
+	 * @param priceMax 商品最高价格 默认值为 100000
+	 * @param cId 商品分类id
+	 * @return 分页显示的商品信息
+	 */
+	List<TbItem> findTbItemBySearchPage(@Param("index")int index, @Param("limit")Integer limit, @Param("title")String title, @Param("priceMin")Integer priceMin, @Param("priceMax")Integer priceMax, @Param("cId")Long cId);
 }
