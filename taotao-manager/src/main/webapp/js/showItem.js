@@ -110,7 +110,7 @@ table.on('toolbar(itemToolBar)',function(obj) {
 					success : function(message) {
 					if (message.status == 200) {
 						layer.alert(message.msg);
-						table.reload('showItemPage',{});
+						table.reload('reloadTable',{});
 					} else {
 						layer.alert(message.msg);
 					}
@@ -128,7 +128,7 @@ table.on('toolbar(itemToolBar)',function(obj) {
 					success : function(message) {
 					if (message.status == 200) {
 						layer.alert(message.msg);
-						table.reload('showItemPage',{});
+						table.reload('reloadTable',{});
 					} else {
 						layer.alert(message.msg);
 					}

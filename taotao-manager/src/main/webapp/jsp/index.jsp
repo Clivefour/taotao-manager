@@ -121,7 +121,9 @@
 			<!-- 内容主体区域
 				 $("#content").load("/jsp/showItem.jsp");
 			 -->
-			<div id="content" style="padding: 15px;">内容主体区域</div>
+			<div id="content" style="padding: 15px;">
+				<div>faeweawf</div>
+			</div>
 		</div>
 
 		<div class="layui-footer">
