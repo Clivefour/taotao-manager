@@ -57,8 +57,6 @@ public class TbItemController {
 	@ResponseBody
 	public LayuiTableResult searchItem(Integer page,Integer limit,String title,Integer priceMin,Integer priceMax,Long cId){
 		LayuiTableResult result = tbItemService.searchItems(page,limit,title,priceMin,priceMax,cId);
-		
-		
 		return result;
 	}
 }
