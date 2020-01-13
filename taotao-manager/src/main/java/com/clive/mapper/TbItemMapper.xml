@@ -75,6 +75,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 	</update>
 	
+	<select id="statisticsItemCId" resultType="com.clive.bean.TbItem">
+		SELECT * FROM tbitem GROUP BY cId
+	</select>
+	
+	<select id="findTbItemCountByCId" resultType="int">
+		SELECT COUNT(*) FROM tbitem WHERE cId = #{cId}
+	</select>
 	
 	
 </mapper>

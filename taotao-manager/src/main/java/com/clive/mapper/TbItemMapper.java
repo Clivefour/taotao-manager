@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.clive.bean.TbItem;
+import com.clive.bean.TbItemCat;
 
 public interface TbItemMapper {
 	/**
@@ -47,4 +48,15 @@ public interface TbItemMapper {
 	 * @return 分页显示的商品信息
 	 */
 	List<TbItem> findTbItemBySearchPage(@Param("index")int index, @Param("limit")Integer limit, @Param("title")String title, @Param("priceMin")Integer priceMin, @Param("priceMax")Integer priceMax, @Param("cId")Long cId);
+	/**
+	 * 统计商品分类id
+	 * @return
+	 */
+	List<TbItem> statisticsItemCId();
+	/**
+	 * 根据分类id查询商品表中该分类的商品数量
+	 * @param getcId
+	 * @return
+	 */
+	int findTbItemCountByCId(@Param("cId")Long cId);
 }
