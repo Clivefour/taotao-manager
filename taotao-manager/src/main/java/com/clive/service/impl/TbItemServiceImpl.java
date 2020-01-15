@@ -36,18 +36,7 @@ public class TbItemServiceImpl implements TbItemService {
 		return result;
 	}
 
-//	@Override
-//	public TaotaoResult delteItemByIds(List<TbItem> items) {
-//		List<Long> ids = new ArrayList<Long>();
-//		for (TbItem item : items) {
-//			ids.add(item.getId());
-//		}
-//		int count = tbItemMapper.delteItemByIds(ids);
-//		if(count>0){
-//			return TaotaoResult.ok();
-//		}
-//		return TaotaoResult.build(500, "删除有误");
-//	}
+
 
 	@Override
 	public TaotaoResult updateItems(List<TbItem> items, Integer type,Date date) {

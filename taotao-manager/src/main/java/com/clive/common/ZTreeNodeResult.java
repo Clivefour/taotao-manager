@@ -1,7 +1,8 @@
 package com.clive.common;
 
+import java.io.Serializable;
 
-public class ZTreeNodeResult {
+public class ZTreeNodeResult implements Serializable{
 
     private Long id;
     private String name;

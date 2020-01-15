@@ -21,13 +21,7 @@ public interface TbItemService {
 	 * @return layui指定的json格式
 	 */
 	LayuiTableResult findItemByPage(Integer page,Integer limit);
-	/**
-	 
-	 * @param items 需要删除的商品信息集合对象 但是我们只要id
-	 * @return 返回TaotaoResult对象
 	
-	TaotaoResult delteItemByIds(List<TbItem> items);
-	 */
 	/**
 	 * 上架下架和删除方法 但是这个删除 不是真的删除数据 而是 修改商品的状态
 	 * @param items 需要上架和下架的商品对象集合 只需要id

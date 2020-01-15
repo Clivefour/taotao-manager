@@ -2,10 +2,8 @@ package com.clive.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.clive.bean.TbItem;
 import com.clive.bean.TbItemCat;
 import com.clive.common.EchartsResult;
@@ -13,6 +11,7 @@ import com.clive.common.ZTreeNodeResult;
 import com.clive.mapper.TbItemCatMapper;
 import com.clive.mapper.TbItemMapper;
 import com.clive.service.TbItemCatService;
+
 @Service
 public class TbItemCatServiceImpl implements TbItemCatService {
 	private String name;
@@ -20,7 +19,6 @@ public class TbItemCatServiceImpl implements TbItemCatService {
 	private TbItemCatMapper tbItemCatMapper;
 	@Autowired
 	private TbItemMapper tbItemMapper;
-	
 	@Override
 	public List<ZTreeNodeResult> findTbItemCatById(Long parentId) {
 		List<TbItemCat> tbItemCats = tbItemCatMapper.findTbItemCatById(parentId);
@@ -32,8 +30,6 @@ public class TbItemCatServiceImpl implements TbItemCatService {
 			node.setIsParent(tbItemCat.getIsParent());
 			result.add(node);
 		}
-		
-		
 		return result;
 	}
 
@@ -52,7 +48,12 @@ public class TbItemCatServiceImpl implements TbItemCatService {
 		}
 		return results;
 	}
-
+	
+	/**
+	 * 根据分类的父级ID查询分类父级对象 最终是查询得到 一级类目的名称
+	 * @param tbItemCat
+	 * @return null 
+	 */
 	private String getFirstItemCat(TbItemCat tbItemCat) {
 		TbItemCat cat = tbItemCatMapper.getTbItemCatById(tbItemCat.getParentId());
 		if(cat!=null){

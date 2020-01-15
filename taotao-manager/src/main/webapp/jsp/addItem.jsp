@@ -207,24 +207,8 @@
 				}
 			});
 		})
-		    var editor;
-		    var paramValue = "";
-		    // 初始化KindEditor编辑器
-		    function initKindEditor(ele, options){
-		        return KindEditor.create(ele, options);
-		    }
-
-		//我通过debug 我发现了 
-		$(function(){
-			options = {
-		            cssPath : '/editor/plugins/code/prettify.css',
-		            filterMode : true,
-		            uploadJson:'/editor/jsp/upload_json.jsp',//上传图片时，需要使用
-		            fileManagerJson:'/editor/jsp/file_manager-json.jsp',
-		            allowFileManager:true
-		        };
-		        editor = initKindEditor('#editor_id', options);
-		})
+		window.editor = KindEditor.create("#editor_id");
+		  
 	</script>
 
 
