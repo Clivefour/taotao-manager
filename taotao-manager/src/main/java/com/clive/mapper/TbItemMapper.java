@@ -12,7 +12,7 @@ public interface TbItemMapper {
 	/**
 	 * 查询数据库中tbitem表，根据商品id查询商品信息
 	 * @param tbItemId
-	 * @return
+	 * @return 
 	 */
 	TbItem findTbItemById(Long tbItemId);
 	/**
@@ -36,6 +36,14 @@ public interface TbItemMapper {
 		int delteItemByIds(@Param("ids") List<Long> ids);
 	 */
 	int updateItemByIds(@Param("ids") List<Long> ids,@Param("type") Integer type,@Param("date") Date date);
+	/**
+	 * 多条件查询根据商品总数
+	 * @param title 商品标题
+	 * @param priceMin 商品价格 最低价格
+	 * @param priceMax 商品价格 最高价格
+	 * @param cId 商品分类id
+	 * @return 根据多个条件查询商品总数量 
+	 */
 	int findTbItemCountBySearch(@Param("title")String title, @Param("priceMin")Integer priceMin, @Param("priceMax")Integer priceMax, @Param("cId")Long cId);
 	/**
 	 * 多条件查询商品信息并且分页显示
@@ -49,7 +57,7 @@ public interface TbItemMapper {
 	 */
 	List<TbItem> findTbItemBySearchPage(@Param("index")int index, @Param("limit")Integer limit, @Param("title")String title, @Param("priceMin")Integer priceMin, @Param("priceMax")Integer priceMax, @Param("cId")Long cId);
 	/**
-	 * 统计商品分类id
+	 * 查询商品表，按照商品分类id按组分类，并且返回商品对象
 	 * @return
 	 */
 	List<TbItem> statisticsItemCId();

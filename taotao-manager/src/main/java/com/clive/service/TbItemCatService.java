@@ -11,7 +11,10 @@ public interface TbItemCatService {
 	 * @return 返回ZTree节点数据 id name isParent
 	 */
 	List<ZTreeNodeResult> findTbItemCatById(Long parentId);
-	
+	/**
+	 * 统计商品分类，并且统计每个分类下商品总数量，以Echarts扇形图 json格式数据返回
+	 * @return
+	 */
 	List<EchartsResult> statisticsItem();
 
 }

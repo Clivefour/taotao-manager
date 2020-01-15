@@ -19,7 +19,11 @@ public class TbItemCatController {
 	@Autowired
 	private TbItemCatService tbItemCatService;
 	
-	
+	/**
+	 * 异步树结构
+	 * @param parentId 异步树父级ID
+	 * @return zTree需要的结果集
+	 */
 	@RequestMapping("/showZtree")
 	@ResponseBody
 	public List<ZTreeNodeResult> showZTreeNode(@RequestParam(value="id", defaultValue="0")Long parentId){
@@ -30,6 +34,10 @@ public class TbItemCatController {
 		List<ZTreeNodeResult> result = tbItemCatService.findTbItemCatById(parentId);
 		return result;
 	}
+	/**
+	 * 商品分类统计
+	 * @return 返回商品分类并且返回这个分类下的商品数量
+	 */
 	@RequestMapping("/statisticsItem")
 	@ResponseBody 
 	public List<EchartsResult> showEcharts(){

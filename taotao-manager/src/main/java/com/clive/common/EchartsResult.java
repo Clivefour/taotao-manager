@@ -1,6 +1,8 @@
 package com.clive.common;
 
-public class EchartsResult {
+import java.io.Serializable;
+
+public class EchartsResult implements Serializable{
 	private String name;
 	private Integer value;
 	public String getName() {

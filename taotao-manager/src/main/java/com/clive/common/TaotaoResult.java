@@ -1,11 +1,12 @@
 package com.clive.common;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class TaotaoResult {
+public class TaotaoResult implements Serializable{
     // 定义jackson对象
     private static final ObjectMapper MAPPER = new ObjectMapper();
     // 响应业务状态

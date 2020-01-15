@@ -75,11 +75,6 @@
 			<artifactId>mybatis-paginator</artifactId>
 			<version>1.2.15</version>
 		</dependency>
-		<dependency>
-			<groupId>com.github.pagehelper</groupId>
-			<artifactId>pagehelper</artifactId>
-			<version>3.4.2-fix</version>
-		</dependency>
 		<!-- MySql -->
 		<dependency>
 			<groupId>mysql</groupId>
