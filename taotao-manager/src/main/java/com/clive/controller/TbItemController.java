@@ -129,6 +129,7 @@ public class TbItemController {
 			fileName = IDUtils.genImageName() + fileName.substring(fileName.lastIndexOf("."));;
 			FtpUtil.uploadFile(Constant.FTP_ADDRESS, Constant.FTP_PORT, Constant.FTP_USERNAME, Constant.FTP_PASSWORD,
 					Constant.FILI_UPLOAD_PATH, filePath, fileName, input);
+			//上传图片layui 需要返回这种格式的json数据
 			LayuiUploadResult result = new LayuiUploadResult();
 			result.setCode(0);
 			result.setMsg("");
@@ -137,7 +138,6 @@ public class TbItemController {
 			result.setData(data);
 			return result;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

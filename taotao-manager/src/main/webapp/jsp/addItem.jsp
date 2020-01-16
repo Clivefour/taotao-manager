@@ -5,7 +5,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>商品添加页面</title>
-
 <script charset="utf-8"
 	src="${pageContext.request.contextPath}/kindeditor/kindeditor-all-min.js"></script>
 <script charset="utf-8"
