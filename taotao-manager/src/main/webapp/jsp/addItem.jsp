@@ -62,6 +62,7 @@
 							预览图：
 							<div class="layui-upload-list" id="demo2"></div>
 						</blockquote>
+						<input type="hidden" name="image" id="imageUpload"/>
 					</div>
 				</div>
 			</div>
@@ -170,9 +171,11 @@
 													});
 										},
 										done : function(res) {
-
-											//res就是图片路径 吧这个路径 绑定到 input输入框中的image这个隐藏域里面去
-											//form表单里面有个隐藏域 名字叫做  name="image" value="controller发送过来的图片路径"
+											/*
+												两种可能行 
+												1.返回的结果集 必须按照某一种规格的json格式返回
+											*/	
+											$("#imageUpload").val($("#imageUpload").val()+res.data.src+",");
 											
 										}
 									});
