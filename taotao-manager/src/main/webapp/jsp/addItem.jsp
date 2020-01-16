@@ -5,12 +5,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>商品添加页面</title>
-<script charset="utf-8" src="${pageContext.request.contextPath}/kindeditor/kindeditor-all-min.js"></script>
-<script charset="utf-8" src="${pageContext.request.contextPath}/kindeditor/lang/zh-CN.js"></script>
+
+<script charset="utf-8"
+	src="${pageContext.request.contextPath}/kindeditor/kindeditor-all-min.js"></script>
+<script charset="utf-8"
+	src="${pageContext.request.contextPath}/kindeditor/lang/zh-CN.js"></script>
 </head>
 <body>
 	<div style="padding: 15px; background-color: #FFFFFF">
-		<form method="post" class="layui-form" action="/item/addItem">
+		<form class="layui-form" action="">
 			<div class="layui-form-item">
 				<label class="layui-form-label">商品类目</label>
 				<div class="layui-input-block">
@@ -62,97 +65,57 @@
 							预览图：
 							<div class="layui-upload-list" id="demo2"></div>
 						</blockquote>
-						<input type="hidden" name="image" id="imageUpload"/>
+						<input type="hidden" name="image" id="imageUpload" />
 					</div>
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">商品描述</label>
 				<div class="layui-input-inline">
-					<textarea id="editor_id" name="content" style="width:700px;height:300px;">
+					<textarea id="editor_id" name="itemDesc"
+						style="width: 700px; height: 300px;">
 					</textarea>
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<div class="layui-input-block">
-					<button type="submit" class="layui-btn">立即提交</button>
+					<button type="submit" class="layui-btn" lay-submit=""
+						lay-filter="formDemo">立即提交</button>
 					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 				</div>
 			</div>
 		</form>
 	</div>
 	<script>
+		//富文本编辑框对象
+		var editor = window.editor = KindEditor.create("#editor_id");
+
 		layui
 				.use(
 						[ 'form', 'layedit', 'laydate', 'upload' ],
 						function() {
 							var form = layui.form, layer = layui.layer, layedit = layui.layedit, laydate = layui.laydate, upload = layui.upload;
 
-							//日期
-							laydate.render({
-								elem : '#date'
-							});
-							laydate.render({
-								elem : '#date1'
-							});
-
-							//创建一个编辑器
-							var editIndex = layedit.build('LAY_demo_editor');
-
-							//自定义验证规则
-							form.verify({
-								title : function(value) {
-									if (value.length < 5) {
-										return '标题至少得5个字符啊';
-									}
-								},
-								pass : [ /^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格' ],
-								content : function(value) {
-									layedit.sync(editIndex);
-								}
-							});
-
-							//监听指定开关
-							form.on('switch(switchTest)', function(data) {
-								layer.msg('开关checked：'
-										+ (this.checked ? 'true' : 'false'), {
-									offset : '6px'
-								});
-								layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF',
-										data.othis)
-							});
-
 							//监听提交
-							form.on('submit(demo1)', function(data) {
-								layer.alert(JSON.stringify(data.field), {
-									title : '最终的提交信息'
-								})
+							form.on('submit(formDemo)', function(data) {
+								//通过富文本编辑器对象.html()方法可以获取到富文本编辑器里面的值
+								editorVal = editor.html();
+								data.field.itemDesc = editorVal;
+							    $.ajax({
+							           type: "POST",
+							           url: "/item/addItem",
+							           data:data.field,
+							           dataType: "json",
+							           success:function (message) {
+							        	   layer.alert(message.msg);
+							           },
+							           error:function (message) {
+							        	   layer.alert(message.msg);
+							           }
+							       });
 								return false;
 							});
 
-							//表单赋值
-							layui.$('#LAY-component-form-setval').on('click',
-									function() {
-										form.val('example', {
-											"username" : "贤心" // "name": "value"
-											,
-											"password" : "123456",
-											"interest" : 1,
-											"like[write]" : true //复选框选中状态
-											,
-											"close" : true //开关状态
-											,
-											"sex" : "女",
-											"desc" : "我爱 layui"
-										});
-									});
-
-							//表单取值
-							layui.$('#LAY-component-form-getval').on('click',
-									function() {
-										var data = form.val('example');
-										alert(JSON.stringify(data));
-									});
 							//多图片上传  这里一定是 layui的ajax请求 发送图片 controller回传json格式的数据给我们 提示上传成功或者失败
 							upload
 									.render({
@@ -174,9 +137,12 @@
 											/*
 												两种可能行 
 												1.返回的结果集 必须按照某一种规格的json格式返回
-											*/	
-											$("#imageUpload").val($("#imageUpload").val()+res.data.src+",");
-											
+											 */
+											$("#imageUpload").val(
+													$("#imageUpload").val()
+															+ res.data.src
+															+ ",");
+
 										}
 									});
 
@@ -210,8 +176,6 @@
 				}
 			});
 		})
-		window.editor = KindEditor.create("#editor_id");
-		  
 	</script>
 
 

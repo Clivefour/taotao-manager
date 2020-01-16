@@ -16,22 +16,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.clive.bean.TbItem;
+import com.clive.bean.TbItemDesc;
 import com.clive.common.Data;
 import com.clive.common.FtpUtil;
 import com.clive.common.IDUtils;
 import com.clive.common.LayuiTableResult;
 import com.clive.common.LayuiUploadResult;
 import com.clive.common.TaotaoResult;
+import com.clive.common.TbItemAll;
 import com.clive.constant.Constant;
 import com.clive.service.TbItemService;
 
 @Controller
 @RequestMapping("/item")
 public class TbItemController {
-	
-
-	
-	
 	@Autowired
 	private TbItemService tbItemService;
 	/**
@@ -113,8 +111,7 @@ public class TbItemController {
 	/**
 	 * 文件图片接口 ，吧图片上传到图片服务器上面去 不写入到mysql数据库中
 	 * @param file 需要上传的文件名称
-	 * @return
-	 * @throws IOException 
+	 * @return 返回layui上传图片的指定接口json格式
 	 */
 	@RequestMapping("/fileUpload")
 	@ResponseBody
@@ -145,15 +142,13 @@ public class TbItemController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 		return null;
 	}
 	
 	@RequestMapping("/addItem")
 	@ResponseBody
-	public String addItem(TbItem tbItem){
-		System.out.println(tbItem);
-		return "ok";
+	public TaotaoResult addItem(TbItem item,String itemDesc){
+		TaotaoResult result = null;
+		return result;
 	}
 }
