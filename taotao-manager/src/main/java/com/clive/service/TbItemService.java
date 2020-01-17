@@ -46,4 +46,11 @@ public interface TbItemService {
 	 */
 	LayuiTableResult searchItems(Integer page, Integer limit, String title, Integer priceMin, Integer priceMax,
 			Long cId);
+	/**
+	 * 添加商品信息和商品描述信息和商品规格参数信息
+	 * @param item 商品基本信息
+	 * @param itemDesc 商品描述信息
+	 * @return 如果为200则表示成功 如果失败 msg里面有失败的提示
+	 */
+	TaotaoResult saveItem(TbItem item, String itemDesc);
 }

@@ -67,4 +67,10 @@ public interface TbItemMapper {
 	 * @return
 	 */
 	int findTbItemCountByCId(@Param("cId")Long cId);
+	/**
+	 * 添加商品基本信息 
+	 * @param item 商品基本信息对象 包含了 商品分类id的
+	 * @return 一个整数，如果大于0则表示添加成功
+	 */
+	int saveTbItem(TbItem item);
 }

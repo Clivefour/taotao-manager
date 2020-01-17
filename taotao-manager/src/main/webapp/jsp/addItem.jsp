@@ -139,8 +139,7 @@
 											 */
 											$("#imageUpload").val(
 													$("#imageUpload").val()
-															+ res.data.src
-															+ ",");
+															+ res.data.src);
 
 										}
 									});

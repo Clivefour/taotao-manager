@@ -8,14 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.clive.bean.TbItem;
+import com.clive.bean.TbItemDesc;
+import com.clive.common.IDUtils;
 import com.clive.common.LayuiTableResult;
 import com.clive.common.TaotaoResult;
+import com.clive.mapper.TbItemDescMapper;
 import com.clive.mapper.TbItemMapper;
 import com.clive.service.TbItemService;
 @Service
 public class TbItemServiceImpl implements TbItemService {
 	@Autowired
 	private TbItemMapper tbItemMapper;
+	@Autowired
+	private TbItemDescMapper tbItemDescMapper;
 
 	@Override
 	public TbItem findTbItemById(Long tbItemId) {
@@ -81,5 +86,29 @@ public class TbItemServiceImpl implements TbItemService {
 		 */
 		result.setData(data);
 		return result;
+	}
+
+	@Override
+	public TaotaoResult saveItem(TbItem item, String desc) {
+		long itemId = IDUtils.genItemId();
+		item.setId(itemId);
+		item.setStatus((byte) 1);
+		Date date = new Date();
+		item.setCreated(date);
+		item.setUpdated(date);
+		int i = tbItemMapper.saveTbItem(item);
+		if(i<=0){
+			return TaotaoResult.build(500, "添加商品失败，商品基本信息填写有误");
+		}
+		TbItemDesc tbItemDesc = new TbItemDesc();
+		tbItemDesc.setItemId(itemId);
+		tbItemDesc.setItemDesc(desc);
+		tbItemDesc.setCreated(date);
+		tbItemDesc.setUpdated(date);
+		int j = tbItemDescMapper.saveTbItemDesc(tbItemDesc);
+		if(j<=0){
+			return TaotaoResult.build(500, "添加商品失败，商品描述信息填写有误");
+		}
+		return TaotaoResult.build(200, "添加商品成功");
 	}
 }
