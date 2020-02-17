@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.clive.mapper.TbItemParamMapper">
+	
+	<resultMap type="com.clive.bean.TbItemParamGroup" id="groupparam">
+		<id column="groupId" property="id"/>
+		<result column="groupName" property="groupName"/>
+		<result column="itemCatId" property="itemCatId"/>
+		<collection property="paramKeys" ofType="com.clive.bean.TbItemParamKey">
+			<id column="paramId" property="id"/>
+			<result column="paramName" property="paramName"/>
+		</collection>
+	</resultMap>
+	
+	<select id="findTbItemGroupByCid" parameterType="long" resultMap="groupparam">
+		SELECT
+			a.id groupId,
+			a.groupName,
+			a.itemCatId,
+			b.id paramId,
+			b.paramName
+		FROM
+			tbitemparamgroup a
+		INNER JOIN 
+			tbitemparamkey b 
+		ON 
+			a.id = b.groupId
+		WHERE
+			itemCatId = #{cId}
+	</select>
+	
+</mapper>

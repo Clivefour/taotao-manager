@@ -29,7 +29,7 @@ public interface TbItemMapper {
 	 */
 	List<TbItem> findTbItemByPage(@Param("index") Integer index,@Param("pageSize") Integer pageSize);
 	/**
-	 * 根据商品id删除商品信息 
+	 * 修改商品状态的方法
 	 * @param items
 	 * @return 如果返回的数据大于0表示删除成功
 	

@@ -77,6 +77,12 @@
 				</div>
 			</div>
 			<div class="layui-form-item">
+				<label class="layui-form-label">规格参数</label>
+				<div id="param" class="layui-input-inline">
+				
+				</div>
+			</div>
+			<div class="layui-form-item">
 				<div class="layui-input-block">
 					<button type="submit" class="layui-btn" lay-submit=""
 						lay-filter="formDemo">立即提交</button>
@@ -167,6 +173,27 @@
 				yes : function(layero, index) {
 					$("#addItemSpan").show();
 					layer.close(layero);
+					var cId = $("#addItemId").val();
+					$.ajax({
+						type : "POST",
+						url : "/itemGroup/showItemGroup",
+						data : "cId="+cId,
+						dataType : "json",
+						success : function(message) {
+						if (message.status == 200) {
+							var groupVal = message.data;
+							$.each(groupVal, function(i, n){
+								 $("#param").append("<h2 style='background-color: #EAEAEA;text-align: center;'>"+n.groupName+"</h2>");
+								 $.each(n.paramKeys, function(j, n2){
+									 $("#param").append("<span>"+n2.paramName+"</span><input type='text'name='paramValue' class='layui-input'/><br/>");
+								 });
+							});
+						
+						} else {
+							layer.alert(message.msg);
+						}
+					}
+				});
 				},
 				success : function(layero, index) {
 					var iframe = window['layui-layer-iframe' + index];

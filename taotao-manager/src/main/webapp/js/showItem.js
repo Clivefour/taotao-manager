@@ -92,7 +92,7 @@ table.on('toolbar(itemToolBar)',function(obj) {
 						success : function(message) {
 						if (message.status == 200) {
 							layer.alert('删除商品成功');
-							table.reload('showItemPage',{});
+							table.reload('reloadTable',{});
 						} else {
 							layer.alert(message.msg);
 						}

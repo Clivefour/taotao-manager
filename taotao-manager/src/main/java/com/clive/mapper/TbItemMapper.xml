@@ -4,7 +4,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.clive.mapper.TbItemMapper">
-
+	<sql id="search">
+		<if test="title!=''">
+			AND title LIKE '%${title}%'
+		</if>
+		<if test="cId!=null">
+			AND cId = #{cId}
+		</if>
+	</sql>
 	<insert id="saveTbItem" parameterType="com.clive.bean.TbItem">
 		INSERT INTO tbitem(id,title,sellPoint,price,num,barcode,image,cId,status,created,updated) VALUE(#{id},#{title},#{sellPoint},#{price},#{num},#{barcode},#{image},#{cId},#{status},#{created},#{updated})
 	</insert>
@@ -15,23 +22,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="findTbItemBySearchPage" resultType="com.clive.bean.TbItem">
 		SELECT * FROM tbitem  WHERE price BETWEEN #{priceMin} AND #{priceMax} 
-		<if test="title!=''">
-			AND title LIKE '%${title}%'
-		</if>
-		<if test="cId!=null">
-			AND cId = #{cId}
-		</if>
+		<include refid="search"></include>
 		LIMIT #{index},#{limit}
 	</select>
 	
 	<select id="findTbItemCountBySearch" resultType="int">
 		SELECT COUNT(*) FROM tbitem WHERE price BETWEEN #{priceMin} AND #{priceMax}
-		<if test="title!=''">
-			AND title LIKE '%${title}%'
-		</if>
-		<if test="cId!=null">
-			AND cId = #{cId}
-		</if>
+		<include refid="search"></include>
 		
 	</select>
 	<select id="findTbItemCount" resultType="int">
@@ -45,39 +42,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 
 	<delete id="delteItemByIds">
-		UPDATE tbitem SET status = 2
+		select * from tbtitem 发现了where标签以后 直接加上where
+		这个时候的sql就变成了
+		select * from tbitem where 我是大美女
+		<if 条件成立以后 才会 执行 里面的代码>
+			只要条件成立 就走if
+			<where>
+				我是大美女
+			</where>
+			
+			
+		</if>
+	</delete>
+	-->
+	<update id="updateItemByIds">
+		UPDATE tbitem SET status = #{type},updated = #{date}
 		<where>
 			<foreach collection="ids" open="id in(" separator="," close=")" item="id">
 				#{id}
 			</foreach>
 		</where>
-	</delete>
-	-->
-	<update id="updateItemByIds">
-		<if test="type==0">
-			UPDATE tbitem SET status = 0,updated = #{date}
-			<where>
-				<foreach collection="ids" open="id in(" separator="," close=")" item="id">
-					#{id}
-				</foreach>
-			</where>
-		</if>
-		<if test="type==1">
-			UPDATE tbitem SET status = 1
-			<where>
-				<foreach collection="ids" open="id in(" separator="," close=")" item="id">
-					#{id}
-				</foreach>
-			</where>
-		</if>
-		<if test="type==2">
-			UPDATE tbitem SET status = 2
-			<where>
-				<foreach collection="ids" open="id in(" separator="," close=")" item="id">
-					#{id}
-				</foreach>
-			</where>
-		</if>
+		
 	</update>
 	
 	<select id="statisticsItemCId" resultType="com.clive.bean.TbItem">

@@ -10,5 +10,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getTbItemCatById" resultType="com.clive.bean.TbItemCat">
 		SELECT * FROM tbitemcat WHERE id = #{id}
 	</select>
+
 	
 </mapper>
