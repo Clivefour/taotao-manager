@@ -32,4 +32,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			itemCatId = #{cId}
 	</select>
 	
+	<insert id="saveTbItemParamValue">
+	INSERT INTO tbitemparamvalue(itemId,paramId,paramValue) 
+	VALUES
+		<foreach collection="tbItemParamValues" separator=","  item="tbItemParamValue">
+			(#{tbItemParamValue.itemId},#{tbItemParamValue.paramId},#{tbItemParamValue.paramValue})
+		</foreach>
+	</insert>
+	
+	
 </mapper>

@@ -9,11 +9,13 @@ import org.springframework.stereotype.Service;
 
 import com.clive.bean.TbItem;
 import com.clive.bean.TbItemDesc;
+import com.clive.bean.TbItemParamValue;
 import com.clive.common.IDUtils;
 import com.clive.common.LayuiTableResult;
 import com.clive.common.TaotaoResult;
 import com.clive.mapper.TbItemDescMapper;
 import com.clive.mapper.TbItemMapper;
+import com.clive.mapper.TbItemParamMapper;
 import com.clive.service.TbItemService;
 @Service
 public class TbItemServiceImpl implements TbItemService {
@@ -21,6 +23,8 @@ public class TbItemServiceImpl implements TbItemService {
 	private TbItemMapper tbItemMapper;
 	@Autowired
 	private TbItemDescMapper tbItemDescMapper;
+	@Autowired
+	private TbItemParamMapper tbItemParamMapper;
 
 	@Override
 	public TbItem findTbItemById(Long tbItemId) {
@@ -89,7 +93,7 @@ public class TbItemServiceImpl implements TbItemService {
 	}
 
 	@Override
-	public TaotaoResult saveItem(TbItem item, String desc) {
+	public TaotaoResult saveItem(TbItem item, String desc,List<TbItemParamValue> tbItemParamValues) {
 		long itemId = IDUtils.genItemId();
 		item.setId(itemId);
 		item.setStatus((byte) 1);
@@ -108,6 +112,16 @@ public class TbItemServiceImpl implements TbItemService {
 		int j = tbItemDescMapper.saveTbItemDesc(tbItemDesc);
 		if(j<=0){
 			return TaotaoResult.build(500, "添加商品失败，商品描述信息填写有误");
+		}
+		//规格参数值的所有数据绑定完毕
+		for (TbItemParamValue tbItemParamValue : tbItemParamValues) {
+			tbItemParamValue.setItemId(itemId);
+		}
+		System.out.println(tbItemParamValues);
+		int z = tbItemParamMapper.saveTbItemParamValue(tbItemParamValues);
+		
+		if(z<=0){
+			return TaotaoResult.build(500, "添加商品失败，商品规格参数信息填写有误");
 		}
 		return TaotaoResult.build(200, "添加商品成功");
 	}

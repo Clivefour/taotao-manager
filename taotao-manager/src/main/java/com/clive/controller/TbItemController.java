@@ -3,6 +3,7 @@ package com.clive.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.apache.commons.fileupload.FileUpload;
@@ -12,10 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.clive.bean.TbItem;
 import com.clive.bean.TbItemDesc;
+import com.clive.bean.TbItemParamValue;
 import com.clive.common.Data;
 import com.clive.common.FtpUtil;
 import com.clive.common.IDUtils;
@@ -145,8 +148,16 @@ public class TbItemController {
 	
 	@RequestMapping("/addItem")
 	@ResponseBody
-	public TaotaoResult addItem(TbItem item,String itemDesc){
-		TaotaoResult result = tbItemService.saveItem(item,itemDesc);;
+	public TaotaoResult addItem(TbItem item,String itemDesc,@RequestParam(value="paramValue[]")String[] paramValue,@RequestParam(value="paramKeyIds[]")Integer[] paramKeyIds){
+		List<TbItemParamValue> tbItemParamValues = new ArrayList<TbItemParamValue>();
+		for(int i = 0;i<paramKeyIds.length;i++){
+			TbItemParamValue tbItemParamValue = new TbItemParamValue();
+			tbItemParamValue.setParamId(paramKeyIds[i]);
+			tbItemParamValue.setParamValue(paramValue[i]);
+			tbItemParamValues.add(tbItemParamValue);
+		}
+		//注意这里没有商品id哦
+		TaotaoResult result = tbItemService.saveItem(item,itemDesc,tbItemParamValues);
 		return result;
 	}
 }

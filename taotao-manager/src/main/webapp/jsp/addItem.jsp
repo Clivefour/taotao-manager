@@ -77,6 +77,12 @@
 				</div>
 			</div>
 			<div class="layui-form-item">
+				<label class="layui-form-label"></label>
+				<div id="paramkey" class="layui-input-inline">
+					<input type="hidden"  name="paramKeyIds"/>
+				</div>
+			</div>
+			<div class="layui-form-item">
 				<label class="layui-form-label">规格参数</label>
 				<div id="param" class="layui-input-inline">
 				
@@ -92,6 +98,10 @@
 		</form>
 	</div>
 	<script>
+		//规格参数值的数组变量
+		var paramValues = new Array();
+		//规格参数项id的数组变量
+		var paramKeyIdsArr = new Array();
 		//富文本编辑框对象
 		var editor = window.editor = KindEditor.create("#editor_id");
 
@@ -99,6 +109,7 @@
 				.use(
 						[ 'form', 'layedit', 'laydate', 'upload' ],
 						function() {
+							
 							var form = layui.form, layer = layui.layer, layedit = layui.layedit, laydate = layui.laydate, upload = layui.upload;
 
 							//监听提交
@@ -106,18 +117,26 @@
 								//通过富文本编辑器对象.html()方法可以获取到富文本编辑器里面的值
 								editorVal = editor.html();
 								data.field.itemDesc = editorVal;
-							    $.ajax({
-							           type: "POST",
-							           url: "/item/addItem",
-							           data:data.field,
-							           dataType: "json",
-							           success:function (message) {
-							        	   layer.alert(message.msg);
-							           },
-							           error:function (message) {
-							        	   layer.alert(message.msg);
-							           }
-							       });
+								$("input[name='paramValue']").each(function(){
+									paramValues.push($(this).val());
+						        })
+						     	
+						        data.field.paramValue = paramValues;
+								data.field.paramKeyIds = paramKeyIdsArr;
+								$.ajax({
+							        type: "POST",
+							        url: "/item/addItem",
+							        data:data.field,
+							        dataType: "json",
+							        success:function (message) {
+							        	layer.alert(message.msg);
+							        },
+							        error:function (message) {
+							        	layer.alert(message.msg);
+							        }
+							    });
+								
+							 
 								return false;
 							});
 
@@ -186,6 +205,7 @@
 								 $("#param").append("<h2 style='background-color: #EAEAEA;text-align: center;'>"+n.groupName+"</h2>");
 								 $.each(n.paramKeys, function(j, n2){
 									 $("#param").append("<span>"+n2.paramName+"</span><input type='text'name='paramValue' class='layui-input'/><br/>");
+									 paramKeyIdsArr.push(n2.id);
 								 });
 							});
 						

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.clive.bean.TbItem;
+import com.clive.bean.TbItemParamValue;
 import com.clive.common.LayuiTableResult;
 import com.clive.common.TaotaoResult;
 
@@ -50,7 +51,8 @@ public interface TbItemService {
 	 * 添加商品信息和商品描述信息和商品规格参数信息
 	 * @param item 商品基本信息
 	 * @param itemDesc 商品描述信息
+	 * @param tbItemParamValues 商品规格参数值集合数据
 	 * @return 如果为200则表示成功 如果失败 msg里面有失败的提示
 	 */
-	TaotaoResult saveItem(TbItem item, String itemDesc);
+	TaotaoResult saveItem(TbItem item, String itemDesc, List<TbItemParamValue> tbItemParamValues);
 }
