@@ -11,9 +11,27 @@
 <body>
 	<div id="div1">
 		<input type="button" id="button1" value="创建规格组"/><br/>
-		<input type="text" name="group"/><input type="button" value="添加规格项"/>
+		<input type="text" name="group"/><input type="button" onclick="paramKey()" value="添加规格项"/><br/>
+		|-----<input type="text" /><br/>
+		|-----<input type="text" /><br/>
+		<input type="text" name="group"/><input type="button" onclick="paramKey()" value="添加规格项"/><br/>
+		|-----<input type="text" /><br/>
+		|-----<input type="text" /><br/>
+		|-----<input type="text" /><br/>
 	</div>
-	
-	
+	<input type="button" id="button2" value="点击我上传"/>
+	<script type="text/javascript">
+		$("#button1").click(function(){
+			$("#div1").append("<input type='text' name='group'/><input type='button' onclick='paramKey()' value='添加规格项'/><br/>");
+		});
+		$("#button2").click(function(){
+			$("input[name='group']").each(function(i,n){
+				console.log($(n).val());
+			})
+		})
+		function paramKey(){
+			$("#div1").append("|-----<input  type='text' /><br/>");
+		}
+	</script>
 </body>
 </html>
