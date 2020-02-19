@@ -27,7 +27,6 @@
 			</div>
 		</div>
 		<div id="groupAndKey">
-			
 		</div>
 		<div class="layui-form-item">
 			<div class="layui-input-block">
@@ -39,11 +38,22 @@
 	</form>
 
 <script type="text/javascript">
+var groups = new Array();
 layui.use([ 'form', 'layedit', 'laydate' ],function() {
+		
 		var form = layui.form, layer = layui.layer, layedit = layui.layedit, laydate = layui.laydate;
 		form.on('submit(saveParam)', function(data) {
-				
 			
+		$(".paramGroups").each(function(i,n){
+			var groupValue = $(n).find("input[name=group]").val();
+			groups.push(groupValue);
+			$(n).find("input[name=groupkey]").each(function(j,m){
+				groups.push($(m).val());
+			})
+			groups.push("rengong");
+		})
+		
+		console.log(groups);
 		return false;
 	});
 });
@@ -83,14 +93,19 @@ $("#findGroup").click(function() {
 	});
 })	
 $("#addParamGroup").click(function(){
-	$("#groupAndKey").append("<div class='layui-form-item'><label class='layui-form-label'>规格参数组</label><div class='layui-input-inline layui-row layui-col-space10 paramGroups'><div class='layui-col-md9'><input type='text' class='layui-input'></div><div class='layui-col-md3'><input type='button' value='&#xe624;' name='addParamKeys' class='layui-btn layui-icon layui-icon-addition'></div></div></div>");
-	$(".paramGroups").each(function(i,n){
+	$("#groupAndKey").append("<div class='layui-form-item'><label class='layui-form-label'>规格参数组</label><div class='layui-input-inline layui-row layui-col-space10 paramGroups'><div class='layui-col-md9'><input type='text' name='group' class='layui-input'></div><div class='layui-col-md3'><input type='button' value='&#xe624;' onclick='addParamKey(this)' class='layui-btn layui-icon layui-icon-addition'></div></div></div>");
+	
+})
+function addParamKey(e){
+	$(e).parent().parent().append("<div class='layui-col-md3'>|____</div><div class='layui-col-md9'><input type='text' name='groupkey' class='layui-input'></div>");
+}
+/***
+$(".paramGroups").each(function(i,n){
 		$(n).find("input[name=addParamKeys]").click(function(){
-			$(n).append("<div class='layui-col-md3'>|____</div><div class='layui-col-md9'><input type='text' class='layui-input'></div>");
-		})
+		$(n).append("<div class='layui-col-md3'>|____</div><div class='layui-col-md9'><input type='text' name='groupkey' class='layui-input'></div>");
 	})
 })
-
+*/
 
 </script>
 </div>
