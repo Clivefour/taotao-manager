@@ -8,7 +8,7 @@
 </head>
 <body>
 <div style="padding: 15px; background-color: #FFFFFF;height: 100%">
-	<form class="layui-form" action="">
+	<form class="layui-form">
 		<div class="layui-form-item">
 			<label class="layui-form-label">商品类目</label>
 			<div class="layui-input-block">
@@ -19,76 +19,31 @@
 			</div>
 		</div>
 		
-		<div id="paramTemplate"  class="layui-form-item">
+		<div id="paramTemplate" style="display: none;"  class="layui-form-item">
 			<label class="layui-form-label">规格模板</label>
 			<div class="layui-input-block">
 				<button id="addParamGroup" type="button"
 					class="layui-btn layui-btn-radius">添加规格参数组</button>
 			</div>
 		</div>
-		<div id="paramTemplate"  class="layui-form-item">
-			<label class="layui-form-label">规格参数组</label>
-			<div class="layui-input-inline layui-row layui-col-space10">
-				<div class="layui-col-md9">
-					<input type="text" class="layui-input">
-				</div>
-				<div class="layui-col-md3">
-					<input type="button" value="&#xe624;" class="layui-btn layui-icon layui-icon-addition">
-				</div>
-				<div class="layui-col-md3">
-					|____
-				</div>
-				<div class="layui-col-md9">
-					<input type="text" class="layui-input">
-				</div>
-				<div class="layui-col-md3">
-					|____
-				</div>
-				<div class="layui-col-md9">
-					<input type="text" class="layui-input">
-				</div>
-			</div>
-		</div>
-			<div id="paramTemplate"  class="layui-form-item">
-			<label class="layui-form-label">规格参数组</label>
-			<div class="layui-input-inline layui-row layui-col-space10">
-				<div class="layui-col-md9">
-					<input type="text" class="layui-input">
-				</div>
-				<div class="layui-col-md3">
-					<input type="button" value="&#xe624;" class="layui-btn layui-icon layui-icon-addition">
-				</div>
-				<div class="layui-col-md3">
-					|____
-				</div>
-				<div class="layui-col-md9">
-					<input type="text" class="layui-input">
-				</div>
-				<div class="layui-col-md3">
-					|____
-				</div>
-				<div class="layui-col-md9">
-					<input type="text" class="layui-input">
-				</div>
-			</div>
+		<div id="groupAndKey">
+			
 		</div>
 		<div class="layui-form-item">
 			<div class="layui-input-block">
 					<button type="submit" class="layui-btn" lay-submit=""
-						lay-filter="formDemo">保存规格参数</button>
+						lay-filter="saveParam">保存规格参数</button>
 					<button type="reset" class="layui-btn layui-btn-primary">取消</button>
 			</div>
 		</div>
-		
-		
-		
 	</form>
 
 <script type="text/javascript">
-layui.use([ 'form',, 'layedit', 'laydate' ],function() {
-	var form = layui.form, layer = layui.layer, layedit = layui.layedit, laydate = layui.laydate;
-	//监听提交
-	form.on('submit(formDemo)', function(data) {		
+layui.use([ 'form', 'layedit', 'laydate' ],function() {
+		var form = layui.form, layer = layui.layer, layedit = layui.layedit, laydate = layui.laydate;
+		form.on('submit(saveParam)', function(data) {
+				
+			
 		return false;
 	});
 });
@@ -127,6 +82,15 @@ $("#findGroup").click(function() {
 		}
 	});
 })	
+$("#addParamGroup").click(function(){
+	$("#groupAndKey").append("<div class='layui-form-item'><label class='layui-form-label'>规格参数组</label><div class='layui-input-inline layui-row layui-col-space10 paramGroups'><div class='layui-col-md9'><input type='text' class='layui-input'></div><div class='layui-col-md3'><input type='button' value='&#xe624;' name='addParamKeys' class='layui-btn layui-icon layui-icon-addition'></div></div></div>");
+	$(".paramGroups").each(function(i,n){
+		$(n).find("input[name=addParamKeys]").click(function(){
+			$(n).append("<div class='layui-col-md3'>|____</div><div class='layui-col-md9'><input type='text' class='layui-input'></div>");
+		})
+	})
+})
+
 
 </script>
 </div>
