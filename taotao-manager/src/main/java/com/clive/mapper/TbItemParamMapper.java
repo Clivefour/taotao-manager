@@ -30,9 +30,9 @@ public interface TbItemParamMapper {
 	/**
 	 * 根据分类id只查询组信息
 	 * @param cId 分类id
-	 * @return 规格参数组集合对象
+	 * @return 返回指定分类下所对应的Id
 	 */
-	List<TbItemParamGroup> findTbItemGroupsBycId(Long cId);
+	List<Integer> findTbItemGroupIdBycId(Long cId);
 	/**
 	 * 插入规格参数项数据到数据库中
 	 * @param paramKeys 规格参数项集合对象

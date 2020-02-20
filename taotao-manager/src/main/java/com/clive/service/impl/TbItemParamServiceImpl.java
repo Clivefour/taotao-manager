@@ -62,15 +62,16 @@ public class TbItemParamServiceImpl implements TbItemParamService {
 		if(i<=0){
 			return TaotaoResult.build(500, "添加规格参数失败");
 		}else{
-			List<TbItemParamGroup> itemParamGroups = tbItemParamMapper.findTbItemGroupsBycId(cId);
-			for(int j = 0;j<groups.size();j++){
-				TbItemParamGroup dataBaseGroup = itemParamGroups.get(j);
-				TbItemParamGroup javaGroup = groups.get(j);
-				if(dataBaseGroup.getGroupName().equals(javaGroup.getGroupName())){
-					List<TbItemParamKey> paramKeys = javaGroup.getParamKeys();
-					for (TbItemParamKey tbItemParamKey : paramKeys) {
-						tbItemParamKey.setGroupId(dataBaseGroup.getId());
-					}
+			//这个集合里面有所有的id 组id
+			List<Integer> ids = 
+					tbItemParamMapper.findTbItemGroupIdBycId(cId);
+			for(int j=0;j<ids.size();j++){
+				//这是第一个 和第二个组
+				TbItemParamGroup tbItemParamGroup = groups.get(j);
+				List<TbItemParamKey> paramKeys = tbItemParamGroup.getParamKeys();
+				//这里是第一组的项遍历  或者第二个组的项遍历
+				for (TbItemParamKey tbItemParamKey : paramKeys) {
+					tbItemParamKey.setGroupId(ids.get(j));
 				}
 			}
 		}
