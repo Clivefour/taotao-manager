@@ -40,5 +40,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</foreach>
 	</insert>
 	
+	<insert id="addParamGroup">
+		INSERT INTO tbitemparamgroup(groupName,itemCatId) VALUES
+		<foreach collection="groups" separator=","  item="group">
+			(#{group.groupName},#{group.itemCatId})
+		</foreach>
+	</insert>
+	
+	<select id="findTbItemGroupsBycId" parameterType="long" resultType="com.clive.bean.TbItemParamGroup">
+		SELECT * FROM tbitemparamgroup WHERE itemCatId = #{itemCatId}
+	</select>
+	<insert id="addParamGroupKeys">
+		INSERT INTO tbitemparamkey(paramName,groupId) VALUES
+		<foreach collection="paramKeys" separator=","  item="paramKey">
+			(#{paramKey.paramName},#{paramKey.groupId})
+		</foreach>
+	</insert>
 	
 </mapper>

@@ -10,5 +10,12 @@ public interface TbItemParamService {
 	 * @return 里面包含了规格参数组合规格参数项数据 以及 状态码200 和 描述消息 msg
 	 */
 	TaotaoResult findTbItemGroupByCId(Long cId);
+	/**
+	 * 添加商品规格参数模板
+	 * @param cId 分类id
+	 * @param params 组和项的字符串  需要我们自己分割的
+	 * @return 如果为200则表示添加成功，500为添加失败 消息在msg里面
+	 */
+	TaotaoResult addItemParamTemplate(Long cId, String params);
 
 }

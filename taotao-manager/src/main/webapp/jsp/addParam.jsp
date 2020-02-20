@@ -38,7 +38,7 @@
 	</form>
 
 <script type="text/javascript">
-var groups = new Array();
+var param = "";
 layui.use([ 'form', 'layedit', 'laydate' ],function() {
 		
 		var form = layui.form, layer = layui.layer, layedit = layui.layedit, laydate = layui.laydate;
@@ -46,14 +46,27 @@ layui.use([ 'form', 'layedit', 'laydate' ],function() {
 			
 		$(".paramGroups").each(function(i,n){
 			var groupValue = $(n).find("input[name=group]").val();
-			groups.push(groupValue);
+			param += groupValue;
 			$(n).find("input[name=groupkey]").each(function(j,m){
-				groups.push($(m).val());
+				param += ","+$(m).val();
 			})
-			groups.push("rengong");
+			param += "clive";
 		})
+		data.field.params = param;
+		$.ajax({
+	        type: "POST",
+	        url: "/itemGroup/addGroup",
+	        data:data.field,
+	        dataType: "json",
+	        success:function (message) {
+	        	layer.alert(message.msg);
+	        },
+	        error:function (message) {
+	        	layer.alert(message.msg);
+	        }
+	    });
 		
-		console.log(groups);
+		
 		return false;
 	});
 });
@@ -92,20 +105,20 @@ $("#findGroup").click(function() {
 		}
 	});
 })	
+/*
+ * 之所以报错的原因是因为  当我们点击了 添加规格参数组按钮以后 执行下面的代码
+ 就会添加一个 div 这个div里面包含了 我们的规格参数组输入框和+号按钮，但是呢
+ 他还有一个for循环
+ */
 $("#addParamGroup").click(function(){
 	$("#groupAndKey").append("<div class='layui-form-item'><label class='layui-form-label'>规格参数组</label><div class='layui-input-inline layui-row layui-col-space10 paramGroups'><div class='layui-col-md9'><input type='text' name='group' class='layui-input'></div><div class='layui-col-md3'><input type='button' value='&#xe624;' onclick='addParamKey(this)' class='layui-btn layui-icon layui-icon-addition'></div></div></div>");
 	
 })
+//定义一个函数 这个函数 就是 和上面的onClick 里面的名字一样 但是this是什么呢？
 function addParamKey(e){
 	$(e).parent().parent().append("<div class='layui-col-md3'>|____</div><div class='layui-col-md9'><input type='text' name='groupkey' class='layui-input'></div>");
 }
-/***
-$(".paramGroups").each(function(i,n){
-		$(n).find("input[name=addParamKeys]").click(function(){
-		$(n).append("<div class='layui-col-md3'>|____</div><div class='layui-col-md9'><input type='text' name='groupkey' class='layui-input'></div>");
-	})
-})
-*/
+
 
 </script>
 </div>
