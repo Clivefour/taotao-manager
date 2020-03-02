@@ -3,7 +3,13 @@
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
+	<!-- 
+		项目名称 叫做 taotao-manager
+	 -->
 	<display-name>taotao-manager</display-name>
+	<!-- 
+		欢迎文件列表  默认首页的意思
+	 -->
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
@@ -21,6 +27,9 @@
 			<param-value>utf-8</param-value>
 		</init-param>
 	</filter>
+	<!-- 
+		所有请求 只要是post的 utf-8解决中文乱码
+	 -->
 	<filter-mapping>
 		<filter-name>CharacterEncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>

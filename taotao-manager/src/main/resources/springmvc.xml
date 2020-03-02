@@ -12,9 +12,16 @@
 
 	<!-- 扫描带Controller注解的类 -->
 	<context:component-scan base-package="com.clive.controller" />
-	<!-- 加载注解驱动 -->
+	<!-- 加载注解驱动
+		使用最新的版本
+	 -->
 	<mvc:annotation-driven />
-	<!-- 配置css和js的静态资源访问 -->
+	<!-- 配置css和js的静态资源访问 
+		前提 就是 web.xml 里面的拦截规则是/
+		http://localhost:8080/js/jquery-2.1.0.min.js 这个就会被
+		拦截 因为他符合的规则是 /jquery-2.1.0.min.js结尾 所以这个js会被拦截 所以要配置放行规则
+		http://localhost:8080/js/abc/kindEidte/jquery-2.1.0.min.js 
+	-->
 	<mvc:resources location="/js/" mapping="/js/**" />
 	<mvc:resources location="/css/" mapping="/css/**" />
 	<mvc:resources location="/layui/" mapping="/layui/**" />

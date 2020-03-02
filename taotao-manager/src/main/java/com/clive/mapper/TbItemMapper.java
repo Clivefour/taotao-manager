@@ -3,6 +3,8 @@ package com.clive.mapper;
 import java.util.Date;
 import java.util.List;
 
+import javax.security.auth.Subject;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.clive.bean.TbItem;
@@ -73,4 +75,7 @@ public interface TbItemMapper {
 	 * @return 一个整数，如果大于0则表示添加成功
 	 */
 	int saveTbItem(TbItem item);
+	
+	
+	
 }

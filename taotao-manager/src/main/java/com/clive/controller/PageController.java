@@ -3,6 +3,9 @@ package com.clive.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.sun.tools.internal.ws.wsdl.document.jaxws.Exception;
 
 @Controller
 public class PageController {
@@ -24,8 +29,10 @@ public class PageController {
 
 	@RequestMapping("/")
 	public String showIndex(){
+		
 		return "index";
 	}
+	
 	
 	
 }

@@ -8,7 +8,7 @@ public class TbItemDesc implements Serializable{
     private Long itemId;
 
     private Date created;
-
+  
     private Date updated;
 
     private String itemDesc;

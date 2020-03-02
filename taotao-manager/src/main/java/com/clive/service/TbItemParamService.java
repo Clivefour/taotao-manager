@@ -16,6 +16,6 @@ public interface TbItemParamService {
 	 * @param params 组和项的字符串  需要我们自己分割的
 	 * @return 如果为200则表示添加成功，500为添加失败 消息在msg里面
 	 */
-	TaotaoResult addItemParamTemplate(Long cId, String params);
+	TaotaoResult saveItemParamTemplate(Long cId, String params);
 
 }

@@ -13,8 +13,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 	</sql>
 	<insert id="saveTbItem" parameterType="com.clive.bean.TbItem">
+		
+		<!-- 这里不是集合 -->
 		INSERT INTO tbitem(id,title,sellPoint,price,num,barcode,image,cId,status,created,updated) VALUE(#{id},#{title},#{sellPoint},#{price},#{num},#{barcode},#{image},#{cId},#{status},#{created},#{updated})
 	</insert>
+
 
 	<select id="findTbItemById" parameterType="long" resultType="com.clive.bean.TbItem">
 		SELECT * FROM tbitem WHERE id = #{id}
@@ -62,7 +65,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				#{id}
 			</foreach>
 		</where>
-		
 	</update>
 	
 	<select id="statisticsItemCId" resultType="com.clive.bean.TbItem">
@@ -72,7 +74,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findTbItemCountByCId" resultType="int">
 		SELECT COUNT(*) FROM tbitem WHERE cId = #{cId}
 	</select>
-	
-	
 	
 </mapper>

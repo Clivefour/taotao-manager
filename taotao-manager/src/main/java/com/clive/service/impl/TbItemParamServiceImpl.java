@@ -33,7 +33,7 @@ public class TbItemParamServiceImpl implements TbItemParamService {
 	}
 
 	@Override
-	public TaotaoResult addItemParamTemplate(Long cId, String params) {
+	public TaotaoResult saveItemParamTemplate(Long cId, String params) {
 		List<TbItemParamGroup> groups = new ArrayList<TbItemParamGroup>();
 		String[] split = params.split("clive");
 		for(int i = 0;i<split.length;i++){//循环两次 第一
