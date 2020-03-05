@@ -16,6 +16,9 @@ $(function() {
 	$("#addParam").click(function() {
 		$("#content").load("/jsp/addParam.jsp");
 	})
+	$("#showContent").click(function(){
+		$("#content").load("/jsp/showContent.jsp");
+	})
 
 })
 	

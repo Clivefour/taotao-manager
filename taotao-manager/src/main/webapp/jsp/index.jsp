@@ -75,17 +75,12 @@ body, html, #allmap {
 					<li class="layui-nav-item"><a href="javascript:;">cms内容管理系统</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a href="javascript:;">cms内容模板添加</a>
+								<a href="javascript:;">内容分类管理</a>
 							</dd>
 							<dd>
-								<a href="javascript:;">cms内容模板查询</a>
+								<a id="showContent" href="javascript:;">内容管理</a>
 							</dd>
-							<dd>
-								<a href="javascript:;">cms内容添加</a>
-							</dd>
-							<dd>
-								<a href="javascript:;">cms内容查询</a>
-							</dd>
+							
 						</dl></li>
 					<li class="layui-nav-item"><a href="javascript:;">订单管理</a>
 						<dl class="layui-nav-child">
