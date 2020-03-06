@@ -17,9 +17,17 @@
 				<ul style="height: 750px" id="showContentTree" class="ztree"></ul>
 			</div>
 		</div>
-		<div  class="layui-col-md10">
+		<div class="layui-col-md10">
 			
+			<table class="layui-hide" id="showContentTable" lay-filter="contentToolBar"></table>
+			<div id="toolbarContent" style="display: none;" class="layui-btn-container">
+				<button class="layui-btn layui-btn-sm" lay-event="deleteContent">选中删除</button>
+				<button class="layui-btn layui-btn-sm" lay-event="addContent">新增内容</button>
+				<button class="layui-btn layui-btn-sm" lay-event="updateContent">修改内容</button>
+			</div>
 		</div>
 	</div>
+	
+
 </body>
 </html>
