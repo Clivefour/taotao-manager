@@ -2,6 +2,7 @@ package com.clive.service;
 
 import java.util.List;
 
+import com.clive.common.LayuiTableResult;
 import com.clive.common.ZTreeNodeResult;
 
 public interface TbContentService {
@@ -11,5 +12,13 @@ public interface TbContentService {
 	 * @return zTree需要的结果集
 	 */
 	List<ZTreeNodeResult> findTbContentById(Long parentId);
+	/**
+	 * 根据内容分类id查询内容信息 
+	 * @param categoryId 内容分类id
+	 * @param limit 
+	 * @param page 
+	 * @return layui table表固定的json格式的数据
+	 */
+	LayuiTableResult findTbContentByCategoryId(Long categoryId, Integer page, Integer limit);
 
 }

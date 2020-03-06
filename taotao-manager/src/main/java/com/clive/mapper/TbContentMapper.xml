@@ -7,4 +7,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findTbContentByParentId" parameterType="long" resultType="com.clive.bean.TbContentCategory">
 		SELECT * FROM tbcontentcategory WHERE parentId = #{parentId}
 	</select>
+	<select id="findTbContentByCategoryId" resultType="com.clive.bean.TbContent">
+		SELECT * FROM tbcontent WHERE categoryId = #{categoryId} LIMIT #{currentIndex},#{limit}
+	</select>
+	
+	<select id="findTbContentCountByCategoryId" parameterType="long" resultType="int">
+		SELECT COUNT(*) FROM tbcontent WHERE categoryId = #{categoryId}
+	</select>
+	
+	
 </mapper>

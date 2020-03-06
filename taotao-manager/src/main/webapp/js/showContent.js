@@ -1,10 +1,12 @@
+var table;
 $(function(){
 	layui.use('table',function() {
 		table = layui.table;
 		table.render({
 			elem : '#showContentTable',//绑定哪个table表 可以以id选择器绑定 可以以class选择器 还可以以 name选择器
-			url : '/content/table',//请求服务器的url路径
+			url : '/content/showContentTable',//请求服务器的url路径
 			toolbar : '#toolbarContent',//开启头部工具栏，并为其绑定左侧模板
+			id : "reloadContentTable",
 			defaultToolbar : [ 'filter', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
 				layEvent : 'LAYTABLE_TIPS',
 				icon : 'layui-icon-tips'
@@ -91,6 +93,28 @@ $(function(){
 })
 function zTreeOnClick(event, treeId, treeNode) {
 	if(treeNode.isParent==false){
-		console.log(treeNode.id);
+		/*
+		 *  如果页面写了这句话 contentType : "application/json;charset=utf-8",
+		 *  java这边 必须使用@RequestBody来接受数据
+		 *  如果没有写 则可以直接接受
+		 *  页面的传递 就是 name=categoryId value=真正的id来传值
+		 *  所以java可以直接接受值
+		 * */
+		$.ajax({
+				type : "POST",
+				url : "/content/showContentTable",
+				data : "categoryId="+treeNode.id+"&page=1&limit=1",
+				dataType : "json",
+				success : function(message) {
+				table.reload('reloadContentTable',{
+					where:{
+						categoryId:treeNode.id,
+					},
+					page:{
+						page:1
+					}
+				});
+			}
+		});
 	}
 };

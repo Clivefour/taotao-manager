@@ -18,7 +18,6 @@
 			</div>
 		</div>
 		<div class="layui-col-md10">
-			
 			<table class="layui-hide" id="showContentTable" lay-filter="contentToolBar"></table>
 			<div id="toolbarContent" style="display: none;" class="layui-btn-container">
 				<button class="layui-btn layui-btn-sm" lay-event="deleteContent">选中删除</button>

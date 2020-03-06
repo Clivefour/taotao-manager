@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.clive.bean.TbContent;
 import com.clive.bean.TbContentCategory;
+import com.clive.common.LayuiTableResult;
 import com.clive.common.ZTreeNodeResult;
 import com.clive.mapper.TbContentMapper;
 import com.clive.service.TbContentService;
@@ -27,5 +29,17 @@ public class TbContentServiceImpl implements TbContentService {
 		}
 		return result;
 	}
+	@Override
+	public LayuiTableResult findTbContentByCategoryId(Long categoryId, Integer page, Integer limit) {
+		LayuiTableResult result = new LayuiTableResult();
+		result.setCode(0);
+		result.setMsg("");
+		int count = tbContentMapper.findTbContentCountByCategoryId(categoryId);
+		result.setCount(count);
+		List<TbContent> data = tbContentMapper.findTbContentByCategoryId(categoryId,(page-1)*limit,limit);
+		result.setData(data);
+		return result;
+	}
+	
 
 }
