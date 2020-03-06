@@ -1,4 +1,5 @@
 var table;
+var categoryIdVal;
 $(function(){
 	layui.use('table',function() {
 		table = layui.table;
@@ -70,10 +71,36 @@ $(function(){
 			        ],
 					page : true
 				});
-		table.on('toolbar(itemToolBar)',function(obj) {
+		table.on('toolbar(contentToolBar)',function(obj) {
 			var checkStatus = table.checkStatus(obj.config.id);
 				switch (obj.event) {
-			
+					/*
+					 * 因为ajax这边 有contentType 值为application/json;charset=utf-8
+					 * 所以 ajax页面这边传递给java的是json 
+					 * 而java要接受json数据 必须使用@RequestBody来接受
+					 * */
+					case 'deleteContent':
+						var data = checkStatus.data;
+						console.log("点击了批量删除按钮");
+							$.ajax({
+								type : "POST",
+								url : "/content/deleteContentByCategoryId",
+								contentType : "application/json;charset=utf-8",
+								data : JSON.stringify(data),
+								dataType : "json",
+								success : function(message) {
+									layer.alert('删除商品成功');
+									table.reload('reloadContentTable',{
+										where:{
+											categoryId:categoryIdVal,
+										},
+										page:{
+											page:1
+										}
+									});
+							}
+						});
+					break;
 					};
 				});
 		});	
@@ -100,15 +127,16 @@ function zTreeOnClick(event, treeId, treeNode) {
 		 *  页面的传递 就是 name=categoryId value=真正的id来传值
 		 *  所以java可以直接接受值
 		 * */
+		categoryIdVal = treeNode.id;
 		$.ajax({
 				type : "POST",
 				url : "/content/showContentTable",
-				data : "categoryId="+treeNode.id+"&page=1&limit=1",
+				data : "categoryId="+categoryIdVal+"&page=1&limit=1",
 				dataType : "json",
 				success : function(message) {
 				table.reload('reloadContentTable',{
 					where:{
-						categoryId:treeNode.id,
+						categoryId:categoryIdVal,
 					},
 					page:{
 						page:1

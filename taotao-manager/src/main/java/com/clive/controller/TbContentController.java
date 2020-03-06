@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.clive.bean.TbContent;
 import com.clive.common.LayuiTableResult;
 import com.clive.common.ZTreeNodeResult;
 import com.clive.service.TbContentService;
@@ -32,6 +34,14 @@ public class TbContentController {
 			return null;
 		}
 		LayuiTableResult result = tbContentService.findTbContentByCategoryId(categoryId,page,limit);
+		return result;
+	}
+	@RequestMapping("/deleteContentByCategoryId")
+	@ResponseBody
+	public LayuiTableResult deleteContent(@RequestBody List<TbContent> tbContents,@RequestParam(value="page", defaultValue="1")Integer page,@RequestParam(value="limit", defaultValue="10")Integer limit){
+		LayuiTableResult result = tbContentService.deleteContentByCategroyIds(tbContents,page,limit);
+		System.out.println("进入到java方法了");
+		System.out.println(result);
 		return result;
 	}
 }

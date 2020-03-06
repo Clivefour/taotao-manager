@@ -15,5 +15,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT COUNT(*) FROM tbcontent WHERE categoryId = #{categoryId}
 	</select>
 	
+	<delete id="deleteContent" >
+		DELETE FROM tbcontent
+		<where>
+			<foreach collection="ids" open="id in(" close=")" separator="," item="id">
+				#{id}
+			</foreach>
+		</where>
+	</delete>
 	
 </mapper>

@@ -28,5 +28,11 @@ public interface TbContentMapper {
 	 * @return 该分类id所属内容的总记录条数
 	 */
 	int findTbContentCountByCategoryId(Long categoryId);
+	/**
+	 * 根据内容id 删除内容信息 
+	 * @param ids 需要删除的id集合
+	 * @return
+	 */
+	int deleteContent(@Param("ids")List<Long> ids);
 	
 }
