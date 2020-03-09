@@ -4,6 +4,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.clive.mapper.TbContentMapper">
+	
+	<insert id="addContent" parameterType="com.clive.bean.TbContent">
+		INSERT INTO tbcontent(categoryId,title,subTitle,titleDesc,url,pic,pic2,content,created,updated)
+		VALUE(#{categoryId},#{title},#{subTitle},#{titleDesc},#{url},#{pic},#{pic2},#{content},#{created},#{updated})
+	</insert>
+
 	<select id="findTbContentByParentId" parameterType="long" resultType="com.clive.bean.TbContentCategory">
 		SELECT * FROM tbcontentcategory WHERE parentId = #{parentId}
 	</select>
@@ -23,5 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</foreach>
 		</where>
 	</delete>
+	
+	
 	
 </mapper>

@@ -1,6 +1,7 @@
 package com.clive.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.clive.bean.TbContent;
 import com.clive.bean.TbContentCategory;
+import com.clive.common.Data;
 import com.clive.common.LayuiTableResult;
+import com.clive.common.TaotaoResult;
 import com.clive.common.ZTreeNodeResult;
 import com.clive.mapper.TbContentMapper;
 import com.clive.service.TbContentService;
@@ -69,6 +72,22 @@ public class TbContentServiceImpl implements TbContentService {
 		List<TbContent> data = tbContentMapper.findTbContentByCategoryId(tbContents.get(0).getCategoryId(),(page-1)*limit,limit);
 		result.setData(data);
 		return result;
+	}
+	@Override
+	public TaotaoResult addContent(TbContent tbContent) {
+		/**
+		 * 创建时间 和 更新时间没有值的 我们要自己给值
+		 * id 不用给 主键自增长
+		 */
+		Date date = new Date();
+		tbContent.setCreated(date);
+		tbContent.setUpdated(date);
+		int count = tbContentMapper.addContent(tbContent);
+		if(count<=0){
+			return TaotaoResult.build(500, "添加失败");
+		}
+		
+		return TaotaoResult.build(200, "添加成功");
 	}
 	
 

@@ -25,7 +25,16 @@
 				<button class="layui-btn layui-btn-sm" lay-event="updateContent">修改内容</button>
 			</div>
 		</div>
+	
+		<div id="divdiv1" style="display: none;">
+			<input type="text" name="" />
+		
+		</div>
+	
 	</div>
+	
+	
+	
 	
 
 </body>

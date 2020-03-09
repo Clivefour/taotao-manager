@@ -34,5 +34,11 @@ public interface TbContentMapper {
 	 * @return
 	 */
 	int deleteContent(@Param("ids")List<Long> ids);
+	/**
+	 * 添加内容信息到内容表中
+	 * @param tbContent
+	 * @return
+	 */
+	int addContent(TbContent tbContent);
 	
 }

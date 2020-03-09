@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.clive.bean.TbContent;
 import com.clive.common.LayuiTableResult;
+import com.clive.common.TaotaoResult;
 import com.clive.common.ZTreeNodeResult;
 
 public interface TbContentService {
@@ -30,5 +31,12 @@ public interface TbContentService {
 	 * 
 	 */
 	LayuiTableResult deleteContentByCategroyIds(List<TbContent> tbContents, Integer page, Integer limit);
+	
+	/**
+	 * 添加内容信息到数据库中返回 TaotaoResult 200则成功
+	 * @param tbContent 需要添加的内容对象
+	 * @return 返回 TaotaoResult 200则成功
+	 */
+	TaotaoResult addContent(TbContent tbContent);
 
 }

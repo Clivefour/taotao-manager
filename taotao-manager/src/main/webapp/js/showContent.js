@@ -100,7 +100,21 @@ $(function(){
 									});
 							}
 						});
-					break;
+						break;
+					case 'addContent':
+						 layer.open({
+							type : 2,
+							title : '添加内容',
+							shadeClose : true,
+							shade : 0.8,
+							area : [ '70%', '90%' ],
+							content : '/jsp/showAddContent.jsp',
+							success : function(layero, index) {
+								var iframe = window['layui-layer-iframe' + index];
+								iframe.child(categoryIdVal,table,layer);
+							}
+						});
+						break;
 					};
 				});
 		});	

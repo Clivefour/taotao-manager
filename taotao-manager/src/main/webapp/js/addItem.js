@@ -5,10 +5,7 @@ var paramKeyIdsArr = new Array();
 $(function(){
 	//富文本编辑框对象
 	var editor = window.editor = KindEditor.create("#editor_id");
-	layui
-			.use(
-					[ 'form', 'layedit', 'laydate', 'upload' ],
-					function() {
+	layui.use([ 'form', 'layedit', 'laydate', 'upload' ],function() {
 						
 						var form = layui.form, layer = layui.layer, layedit = layui.layedit, laydate = layui.laydate, upload = layui.upload;
 

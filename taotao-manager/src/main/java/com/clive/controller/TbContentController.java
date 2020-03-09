@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.clive.bean.TbContent;
 import com.clive.common.LayuiTableResult;
+import com.clive.common.TaotaoResult;
 import com.clive.common.ZTreeNodeResult;
 import com.clive.service.TbContentService;
 
@@ -43,5 +44,14 @@ public class TbContentController {
 		System.out.println("进入到java方法了");
 		System.out.println(result);
 		return result;
+	}
+	@RequestMapping("/addContent")
+	@ResponseBody
+	public TaotaoResult addContent(TbContent tbContent){
+		TaotaoResult result = tbContentService.addContent(tbContent);
+		
+		return result;
+
+	
 	}
 }
